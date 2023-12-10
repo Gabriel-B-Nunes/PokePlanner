@@ -1,5 +1,5 @@
 # Tipos Pokemon
-Esse projeto foi realizado sozinho com o objetivo de aprender o básico de JavaScript e práticar lógica de programação.
+Esse projeto foi realizado sozinho com o objetivo de aprender o básico de JavaScript e praticar lógica de programação.
 ## Funções
 Foram criadas as seguintes funções:
 |Nome da função  |O que ela faz                  |
