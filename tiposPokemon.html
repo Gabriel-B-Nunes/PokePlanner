@@ -274,8 +274,8 @@
 				throw{ 
 				  name: "Function Error", 
 				  level: "Show Stopper", 
-				  message: "Tamanho do time maior que o definido na função", 
-				  toString:    function(){return this.name + ": " + this.message;} 
+				  message: "Tamanho do time " + "(" +time.length+ ")" + " maior que o definido na função " + "(" +tamanhoTime+ ")", 
+				  toString:    function(){return this.name + ": " + this.message;},
 				}
 			}
 			return time;	
@@ -288,7 +288,6 @@
 				for(id2 = 0; id2 < time.length; id2++){
 					if(tipoCounter == time[id2]){
 						achou = true;
-						console.log(achou);
 					}
 				}
 				if(achou == false){
@@ -299,8 +298,8 @@
 				throw{ 
 				  name: "Function Error", 
 				  level: "Show Stopper", 
-				  message: "Tamanho do time maior que o definido na função", 
-				  toString:    function(){return this.name + ": " + this.message;} 
+				  message: "Tamanho do time " + "(" +time.length+ ")" + " maior que o definido na função " + "(" +tamanhoTime+ ")", 
+				  toString:    function(){return this.name + ": " + this.message;},
 				}
 			}
 			return time;	
