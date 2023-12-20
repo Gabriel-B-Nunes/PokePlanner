@@ -24,3 +24,12 @@
 	height: 100%;
 	padding: 1em;
 }
+
+#div-checkbox {
+	display: flex;
+	flex-direction: row;
+}
+
+#div-checkbox > ul {
+	margin-left: 2em;
+}
