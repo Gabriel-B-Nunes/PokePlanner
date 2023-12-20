@@ -228,7 +228,7 @@ function verificaQualTipoUsarContraTipo(tipo, dadoBaseParaLocalizarCounter = 'do
 	}	
 }
 
-function montaTimeContraTipos(tiposPK, dadoBaseParaLocalizarCounter = 'doDoubleDamage', tamanhoTime = 6){
+function montaTimeContraTipos(tiposPK, dadoBaseParaLocalizarCounter = 'doDoubleDamage', tamanhoTime = 9){
 	if(tiposPK == 'todos'){
 		var time = [];
 		time.push(verificaQualTipoUsarContraTipo(tipos[0].tipo, dadoBaseParaLocalizarCounter));
