@@ -31,5 +31,9 @@
 }
 
 #div-checkbox > ul {
-	margin-left: 2em;
+	margin-left: 1em;
+}
+
+fieldset {
+	margin-bottom: 1em;
 }
