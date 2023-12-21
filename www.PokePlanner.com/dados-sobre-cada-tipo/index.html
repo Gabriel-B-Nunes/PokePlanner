@@ -2,14 +2,14 @@
 <html lang = 'pt-BR'>
 	<head>
 		<meta charset = 'utf-8'/>
-		<title>PokePlanner</title>
-		<script src = 'script/script.js' defer></script>
+		<title>PokePlanner</title>	
 		<meta name = 'author' content = 'Gabriel Becker Nunes'/>
 		<meta 
 		      name = 'description'
 		      content = 'PokePlanner é um projeto desenvolvido em html, javascript e css para ajudar os treinadores a montarem suas equipes de pokemons'/>
 		<link rel = 'icon' href = 'favicon/favicon.ico'/>
 		<link rel = 'stylesheet' href = 'css/stylesheet.css'/>
+		<script src = 'script/script.js' defer></script>
 	</head>
 	<body>
 		<div id = 'navibar'>
@@ -19,17 +19,17 @@
 			</div>
 			<div id = 'div-links'>
 				<ul>
-					<li><a href = ''>Escolher tipos adequados</a></li>
-					<li><a href = '../dados-sobre-cada-tipo/index.html'>Dados sobre cada tipo</a></li>
+					<li><a href = '../escolher-tipos-adequados/index.html'>Escolher tipos adequados</a></li>
+					<li><a href = ''>Dados sobre cada tipo</a></li>
 				</ul>
 			</div>
 		</div>
 		<div id = 'div-conteudo'>
-			<p>Escolher tipos adequados</p>
-			<form id = 'form-escolher-tipos-adequados'>
+			<p>Dados sobre cada tipo</p>
+			<form id = 'dados-sobre-cada-tipo'>
 				<fieldset>
-					<legend>Quais tipos você irá enfrentar?</legend>
-					<div id = 'div-checkbox'>
+					<legend>Quais tipos quer pesquisar?</legend>
+					<div id = 'div-checkbox-tipos'>
 						<ul>
 							<li>
 								<input type = 'checkbox' id = 'bug' name = 'bug'><label for = 'bug'>Bug</label>
@@ -93,19 +93,37 @@
 					</div>
 				</fieldset>
 				<fieldset>
-					<legend>Qual vantegem você quer ter?</legend>
-					<select id = 'tipo-vantagem'>
-						<option value = 'doDoubleDamage'>Causar o dobro de dano</option>
-						<option value = 'takeHalfDamage'>Receber metade do dano</option>
-						<option value = 'immuneTo'>Ser imune</option>
-					</select>
+					<legend>Quais dados quer ver?</legend>
+					<div id = 'div-checkbox-dados'>
+						<ul>
+							<li>
+								<input type = 'checkbox' id = 'doDoubleDamage' name = 'doDoubleDamage'><label for = 'doDoubleDamage'>Causa 2x dano</label>
+							</li>
+							<li>
+								<input type = 'checkbox' id = 'takeHalfDamage' name = 'takeHalfDamage'><label for = 'takeHalfDamage'>Recebe 1/2 dano</label>
+							</li>
+							<li>
+								<input type = 'checkbox' id = 'doHalfDamage' name = 'doHalfDamage'><label for = 'doHalfDamage'>Causa 1/2 dano</label>
+							</li>
+							<li>
+								<input type = 'checkbox' id = 'takeDoubleDamage' name = 'takeDoubleDamage'><label for = 'takeDoubleDamage'>Recebe 2x dano</label>
+							</li>
+							<li>
+								<input type = 'checkbox' id = 'immuneTo' name = 'immuneTo'><label for = 'immuneTo'>É imune</label>
+							</li>
+							<li>
+								<input type = 'checkbox' id = 'cantDamage' name = 'cantDamage'><label for = 'cantDamage'>Não causa dano</label>
+							</li>
+						</ul>
+					</div>
 				</fieldset>
-				<button type = 'button' id = 'button-processar'>Processar tipos informados</button>
-				<button type = 'button' id = 'button-selecionar-todos-tipos'>Selecionar todos os tipos</button>
-				<button type = 'reset'>Limpar seleção</button>
+				<button id = 'button-processar' type = 'button'>Processar tipos informados</button>
+				<button id = 'button-selecionar-todos-tipos' type = 'button'>Selecionar todos os tipos</button>
+				<button id = 'button-selecionar-todos-dados' type = 'button'>Selecionar todos os dados</button>
+				<button id = 'button-reset' type = 'button'>Limpar seleção</button>
 				<fieldset>
-					<legend>Use:</legend>
-					<p id = 'p-resultado'></p>
+					<table id = 'table-resultados'>
+					</table>
 				</fieldset>
 			</form>
 		</div>

@@ -159,6 +159,7 @@ var tipos = [
 		'id' : 17
 	}
 ];
+
 function devolveListaTipos(){
 	var ListaTipos = [];
 	for(i = 0; i < tipos.length; i++){
@@ -167,135 +168,86 @@ function devolveListaTipos(){
 	return ListaTipos;
 }
 
-function inverteTipo(tipo){
-	if(tipo == 'doDoubleDamage'){
-		return 'takeDoubleDamage';
-	}
-	if(tipo == 'takeDoubleDamage'){
-		return 'doDoubleDamage';
-	}
-	if(tipo == 'takeHalfDamage'){
-		return 'doHalfDamage';
-	}
-	if(tipo == 'doHalfDamage'){
-		return 'takeHalfDamage';
-	}
-	if(tipo == 'immuneTo'){
-		return 'cantDamage'
-	}
-	if(tipo == 'cantDamage'){
-		return 'immuneTo'
-	}
-}
-
-function localizaTipoDado(tipo, dado){
+function buscaDado(fonte, tipo, dados){
 	for(i = 0; i < tipos.length; i++){
-		var id = tipos[i].id;
-		if(tipo == tipos[id].tipo){
-			return tipos[id][inverteTipo(dado)];
+		if(tipos[i]['tipo'] == tipo){
+			return tipos[i][dados]
 		}
 	}
 }
 
-function verificaQualTipoUsarContraTipo(tipo, dadoBaseParaLocalizarCounter = 'doDoubleDamage', retornaTiposVencidos = false){
-	var opcoes = localizaTipoDado(tipo, dadoBaseParaLocalizarCounter);
-	var vencedor = '';
-	var comparador = '';
-	try {
-		for(i = 0; i < opcoes.length; i++){
-			for(id = 0; id < tipos.length; id++){
-				if(opcoes[i] == tipos[id].tipo){
-					if(tipos[id][dadoBaseParaLocalizarCounter].length > comparador.length){
-					comparador = tipos[id][dadoBaseParaLocalizarCounter];
-					vencedor = tipos[id].tipo;
-					}
-				}
-			}
-		}
-	} catch(error){
-		console.log('name:', error.name);
-		console.log('message:', error.message);
-		console.log('tipo', '\"' + tipo + '\"', 'não possui o dado', '\"' + dadoBaseParaLocalizarCounter + '\"');
+function criaTabela(index, colunas, tiposPesquisa) {
+	const tableRef = document.getElementById('table-resultados');
+	var newRow = tableRef.insertRow(-1);
+	var newCell = newRow.insertCell();
+	var newText = document.createTextNode(index);
+	newCell.appendChild(newText);
+	for(i = 0; i < colunas.length; i++){
+		newCell = newRow.insertCell();
+		newText = document.createTextNode(colunas[i]);
+		newCell.appendChild(newText);
 	}
-	if(retornaTiposVencidos == false){
-		if(vencedor != ''){
-			return vencedor;
-		} else {return false}
-	} else {
-		if(comparador != ''){
-			return comparador;
-		} else {return false}
-	}	
-}
-
-function montaTimeContraTipos(tiposPK, dadoBaseParaLocalizarCounter = 'doDoubleDamage', tamanhoTime = 9){
-	if(tiposPK == 'todos'){
-		var time = [];
-		time.push(verificaQualTipoUsarContraTipo(tipos[0].tipo, dadoBaseParaLocalizarCounter));
-		for(id1 = 0; id1 < tipos.length; id1++){
-			var achou = false;
-			var tipoCounter = (verificaQualTipoUsarContraTipo(tipos[id1].tipo, dadoBaseParaLocalizarCounter));
-			for(id2 = 0; id2 < time.length; id2++){
-				if(tipoCounter == time[id2]){
-					achou = true;
-				}
-			}
-			if(achou == false){
-				time.push(tipoCounter);
-			}
+	for(i = 0; i < tiposPesquisa.length; i++){
+		newRow = tableRef.insertRow(-1);
+		newCell = newRow.insertCell();
+		newText = document.createTextNode(tiposPesquisa[i]);
+		newCell.appendChild(newText);
+		for(x = 0; x < colunas.length; x++){
+			var dadosTemp = buscaDado(tipos, tiposPesquisa[i], colunas[x]);
+			console.log(tiposPesquisa[0]);
+			console.log(colunas);
+			newCell = newRow.insertCell();
+			newText = document.createTextNode(dadosTemp);
+			newCell.appendChild(newText);
 		}
-		if(time.length > tamanhoTime){
-			throw{ 
-			  name: "Function Error", 
-			  level: "Show Stopper", 
-			  message: "Tamanho do time " + "(" +time.length+ ")" + " maior que o definido na função " + "(" +tamanhoTime+ ")", 
-			  toString:    function(){return this.name + ": " + this.message;},
-			}
-		}
-		return time;	
-	} else{
-		var time = [];
-		time.push(verificaQualTipoUsarContraTipo(tiposPK[0], dadoBaseParaLocalizarCounter));
-		for(id1 = 0; id1 < tiposPK.length; id1++){
-			var achou = false;
-			var tipoCounter = (verificaQualTipoUsarContraTipo(tiposPK[id1], dadoBaseParaLocalizarCounter));
-			for(id2 = 0; id2 < time.length; id2++){
-				if(tipoCounter == time[id2]){
-					achou = true;
-				}
-			}
-			if(achou == false){
-				time.push(tipoCounter);
-			}
-		}
-		if(time.length > tamanhoTime){
-			throw{ 
-			  name: "Function Error", 
-			  level: "Show Stopper", 
-			  message: "Tamanho do time " + "(" +time.length+ ")" + " maior que o definido na função " + "(" +tamanhoTime+ ")", 
-			  toString:    function(){return this.name + ": " + this.message;},
-			}
-		}
-		return time;	
 	}
 }
 
-document.getElementById('button-processar').onclick = () => {
-	var tiposTemp = devolveListaTipos();
-	var selecaoUsuario = [];
-	var tipoVantagem = document.getElementById('tipo-vantagem').value;
-	for(i = 0; i < tiposTemp.length; i++){
-		var checkbox = document.getElementById(tiposTemp[i]).checked;
-		if(checkbox){
-			selecaoUsuario.push(tiposTemp[i]);
-		}
+document.getElementById('button-selecionar-todos-dados').onclick = () => {
+	var listaDados = ['doDoubleDamage', 'takeHalfDamage', 'doHalfDamage', 'takeDoubleDamage', 'immuneTo', 'cantDamage'];
+	for(i = 0; i < listaDados.length; i++){
+		document.getElementById(listaDados[i]).checked = true;
 	}
-	document.getElementById('p-resultado').textContent = montaTimeContraTipos(selecaoUsuario, tipoVantagem);
 }
 
 document.getElementById('button-selecionar-todos-tipos').onclick = () => {
 	var listaTipos = devolveListaTipos();
 	for(i = 0; i < listaTipos.length; i++){
 		document.getElementById(listaTipos[i]).checked = true;
+	}
+}
+
+document.getElementById('button-processar').onclick = () => {
+	var listaTipos = devolveListaTipos();
+	var listaDados = ['doDoubleDamage', 'takeHalfDamage', 'doHalfDamage', 'takeDoubleDamage', 'immuneTo', 'cantDamage'];
+	var listaDadosUsuario = [];
+	var listaTiposUsuario = [];
+	for(i = 0; i < listaTipos.length; i++){
+		var checked = document.getElementById(listaTipos[i]).checked
+		if(checked == true){
+			listaTiposUsuario.push(listaTipos[i]);
+		}
+	}
+	for(i = 0; i < listaDados.length; i++){
+		var checked = document.getElementById(listaDados[i]).checked
+		if(checked == true){
+			listaDadosUsuario.push(listaDados[i]);
+		}
+	}
+	criaTabela('tipo', listaDadosUsuario, listaTiposUsuario);
+}
+
+document.getElementById('button-reset').onclick = () => {
+	var listaTipos = devolveListaTipos();
+	for(i = 0; i < listaTipos.length; i++){
+		document.getElementById(listaTipos[i]).checked = false;
+	}
+	var listaDados = ['doDoubleDamage', 'takeHalfDamage', 'doHalfDamage', 'takeDoubleDamage', 'immuneTo', 'cantDamage'];
+	for(i = 0; i < listaDados.length; i++){
+		document.getElementById(listaDados[i]).checked = false;
+	}
+	const tableRef = document.getElementById('table-resultados');
+	while(tableRef.firstChild){
+		tableRef.removeChild(tableRef.firstChild);
 	}
 }
