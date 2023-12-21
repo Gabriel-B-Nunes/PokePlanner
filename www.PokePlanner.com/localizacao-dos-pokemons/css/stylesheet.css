@@ -1,0 +1,25 @@
+/*definindo layout html*/
+#navibar {
+	display: flex;
+	flex-direction: column;
+	left:0;
+	position: fixed;
+	height: 100%;
+	width: 20%;
+	border: 1px solid black;
+}
+
+#div-titulo, #div-links {
+	display: flex;
+	flex-direction: column;
+	margin: 1em;
+	border: 1px solid black;
+	padding: 1em;
+}
+
+#div-conteudo {
+	border: 1px solid black;
+	margin-left: 20%;
+	height: 100%;
+	padding: 1em;
+}
